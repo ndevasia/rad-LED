@@ -15,6 +15,15 @@ void doOneFrame() {
 	}
 }
 
+void newGame() {
+	Character player(PLAYER_START_LOCATION, PLAYER_START_HP);
+	Character[] enemies
+		while (True) {
+			doOneFrame(player, enemies);
+			sleep(1); //so that frames only update once a second
+		}
+}
+
 int main() { //HERE IS THE MAIN
 	//while (True) { //need some sort of escape clause here
 	//	doOneFrame();
@@ -22,12 +31,5 @@ int main() { //HERE IS THE MAIN
 	newGame();
 }
 
-void newGame() {
-	Character player(PLAYER_START_LOCATION, PLAYER_START_HP);
-	Character[] enemies
-	while (True) {
-		doOneFrame(player, enemies);
-		sleep(1); //so that frames only update once a second
-	}
-}
+
 
