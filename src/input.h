@@ -1,7 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include <map>
+#include <array>
 
 enum WiiButton
 {
@@ -22,7 +22,9 @@ struct ButtonState
     bool isHeld;
 };
 
+using InputState = std::array<ButtonState, LENGTH>;
+
 bool controllersConnected();
-std::array<ButtonState, LENGTH> getButtonStates();
+InputState getButtonStates();
 
 #endif

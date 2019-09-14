@@ -38,7 +38,7 @@ bool controllersConnected()
 	return true;
 }
 
-array<ButtonState, WiiButton::LENGTH> getButtonStates()
+InputState getButtonStates()
 {
     static array<ButtonState, LENGTH> lastResult;
     array<ButtonState, LENGTH> result;
