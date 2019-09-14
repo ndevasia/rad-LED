@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/run.exe.dir/src/input.cpp.o CMakeFiles/run.exe.dir/src/radLED.cpp.o  -o run.exe  -L/home/jake/programming/repos/hackmit/lib/wiiuse/build/src -Wl,-rpath,/home/jake/programming/repos/hackmit/lib/wiiuse/build/src -lwiiuse 

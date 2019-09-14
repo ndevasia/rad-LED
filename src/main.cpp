@@ -1,35 +1,19 @@
-#include "radLED.h"
+#include <unistd.h>
 #include "input.h"
-#include "character.h"
+#include "gamelogic.h"
 
-void doOneFrame(Character *player, Character[] enemies) {
-	std::map<WiiButton, ButtonState> map = getMap();
-	pixel[][] pixelArray = GameFrame(map, &player, enemies); //idk how namespaces work so maybe this is wrong
-	for (int r = 0; r < numRows; r++) {
-		for (int c = 0; c < numCols; c++) {
-			pixel pix = pixelArray[r][c];
-			sendByte(pix.r);
-			sendByte(pix.g);
-			sendByte(p.b);
-		}
-	}
-}
+int main()
+{
+    printf("Connecting to wiimotes...\n");
 
-void newGame() {
-	Character player(PLAYER_START_LOCATION, PLAYER_START_HP);
-	Character[] enemies = new Character[MAX_ENEMIES];
-		while (True) {
-			doOneFrame(&player, enemies);
-			sleep(1); //so that frames only update once a second
-		}
-}
+    // Connect to wiimotes
+    while (!controllersConnected())
+    {
+        constexpr static unsigned ms = 10;
+        usleep(ms * 1000);
+    }
 
-int main() { //HERE IS THE MAIN
-	//while (True) { //need some sort of escape clause here
-	//	doOneFrame();
-	//}
+    printf("Connected to wiimotes!\n");
+
 	newGame();
 }
-
-
-
