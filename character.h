@@ -7,6 +7,7 @@ final double ENEMY_PROBABILITY = .5;
 final int ENEMY_DISTANCE_RANGE = 5;
 final int ATTACK_POWER = 35;
 final double REFRESH_RATE = 0.5;
+final int MAX_ENEMIES = 3;
 
 struct Character {
 	int location;

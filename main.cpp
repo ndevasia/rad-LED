@@ -2,9 +2,9 @@
 #include "input.h"
 #include "character.h"
 
-void doOneFrame() {
+void doOneFrame(Character *player, Character[] enemies) {
 	std::map<WiiButton, ButtonState> map = getMap();
-	pixel[][] pixelArray = GameFrame(map); //idk how namespaces work so maybe this is wrong
+	pixel[][] pixelArray = GameFrame(map, &player, enemies); //idk how namespaces work so maybe this is wrong
 	for (int r = 0; r < numRows; r++) {
 		for (int c = 0; c < numCols; c++) {
 			pixel pix = pixelArray[r][c];
@@ -17,9 +17,9 @@ void doOneFrame() {
 
 void newGame() {
 	Character player(PLAYER_START_LOCATION, PLAYER_START_HP);
-	Character[] enemies
+	Character[] enemies = new Character[MAX_ENEMIES];
 		while (True) {
-			doOneFrame(player, enemies);
+			doOneFrame(&player, enemies);
 			sleep(1); //so that frames only update once a second
 		}
 }

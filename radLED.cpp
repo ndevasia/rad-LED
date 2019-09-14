@@ -1,22 +1,22 @@
 #include "radLED.h"
 #include "input.h"
+#include "character.h"
+#include <map>
 
 namespace LEDGameFrame
 {
-	int currCol = 0;
-
 	LEDGameFrame::pixel pixelArray[64];
 
-	LEDGameFrame::pixel[][] GameFrame(std::map map)
+	LEDGameFrame::pixel[][] GameFrame(std::map map, Character *player, Character[] enemies)
 	{
 		if (map[RIGHT].isHeld)
 		{
-			currCol += 1;
+			player.location += 1;
 			
 		}
 		else if(map[LEFT].isHeld && currCol > 0)
 		{
-			currCol -= 1;
+			player.location -= 1;
 		}
 
 		if (map[TWO].isPressed)
