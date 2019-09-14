@@ -9,21 +9,21 @@ namespace LEDGameFrame
 
 	LEDGameFrame::pixel[][] GameFrame(std::map map)
 	{
-		if (map[RIGHT].isHeld())
+		if (map[RIGHT].isHeld)
 		{
 			currCol += 1;
 			
 		}
-		else if(map[LEFT].isHeld() && currCol > 0)
+		else if(map[LEFT].isHeld && currCol > 0)
 		{
 			currCol -= 1;
 		}
 
-		if (map[TWO].isDown())
+		if (map[TWO].isPressed)
 		{
 			//attacking code
 		}
-		else if (map[B].isHeld()) 
+		else if (map[B].isHeld) 
 		{
 			//recharge code
 		}
