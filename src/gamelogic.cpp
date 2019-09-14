@@ -126,6 +126,9 @@ Frame makeFrame(InputState input, Player *player, std::vector<Character> enemies
 	if (createEnemy && enemies.size() < MAX_ENEMY_COUNT) 
 	{
 		int startLocation = player->location + 1 + (rand() % ENEMY_DISTANCE_RANGE);
+		if (startLocation >= col - 1) {
+			startLocation = col - 1;
+		}
 		Character enemy{ startLocation, ENEMY_START_HP };
 		enemies.push_back(enemy);
 	}
