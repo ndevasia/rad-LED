@@ -1,6 +1,10 @@
 #include <unistd.h>
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 #include "input.h"
 #include "gamelogic.h"
+
 
 int main()
 {
@@ -14,6 +18,8 @@ int main()
     }
 
     printf("Connected to wiimotes!\n");
+
+	srand(time(NULL));
 
 	newGame();
 }
