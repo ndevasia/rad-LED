@@ -10,6 +10,8 @@ int main()
 {
     printf("Connecting to wiimotes...\n");
 
+    startInputPolling();
+
     // Connect to wiimotes
     while (!controllersConnected())
     {
@@ -22,4 +24,6 @@ int main()
 	srand(time(NULL));
 
 	newGame();
+
+    stopInputPolling();
 }
