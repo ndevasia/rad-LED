@@ -1,6 +1,7 @@
 #include <thread>
 #include <unistd.h>
 #include <map>
+#include <cstring>
 #include "input.h"
 #include "wiiuse.h"
 
@@ -42,15 +43,16 @@ InputState getButtonStates()
 {
     static array<ButtonState, LENGTH> lastResult;
     array<ButtonState, LENGTH> result;
+    memset(result.data(), 0, sizeof result);
 
     if (wiiuse_poll(wiimotes, 1) && wiimotes[0]->event == WIIUSE_EVENT)
     {
         static map<WiiButton, int> buttonNames
         {
-            {UP, WIIMOTE_BUTTON_UP},
-            {RIGHT, WIIMOTE_BUTTON_RIGHT},
-            {DOWN, WIIMOTE_BUTTON_DOWN},
-            {LEFT, WIIMOTE_BUTTON_LEFT},
+            {UP, WIIMOTE_BUTTON_RIGHT},
+            {RIGHT, WIIMOTE_BUTTON_DOWN},
+            {DOWN, WIIMOTE_BUTTON_LEFT},
+            {LEFT, WIIMOTE_BUTTON_UP},
             {A, WIIMOTE_BUTTON_A},
             {B, WIIMOTE_BUTTON_B},
             {ONE, WIIMOTE_BUTTON_ONE},
