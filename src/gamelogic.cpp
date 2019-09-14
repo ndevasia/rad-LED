@@ -1,7 +1,11 @@
 #include <unistd.h>
+#include <cstring>
+#include <map>
 #include "gamelogic.h"
 #include "render.h"
 #include "input.h"
+
+using std::map;
 
 int currCol = 0;
 
@@ -26,6 +30,7 @@ Character enemies[3];
 Frame makeFrame(InputState input)
 {
     Frame frame;
+    memset(frame.data(), 0, sizeof frame);
 
     if (input[RIGHT].isHeld)
     {
@@ -46,18 +51,36 @@ Frame makeFrame(InputState input)
         //recharge code
     }
 
-    for (int i = 0; i < frame.size(); ++i)
-    {
-        frame[i] = {255, 0, 0};
-    }
-
-    //frame[currCol] = { 0, 255, 0 };
+    frame[currCol] = { 0, 255, 0 };
 
     return frame; 
 }
 
+static map<int, const char *> buttonNames
+{
+    {UP, "UP"},
+    {RIGHT, "RIGHT"},
+    {DOWN, "DOWN"},
+    {LEFT, "LEFT"},
+    {A, "A"},
+    {B, "B"},
+    {ONE, "ONE"},
+    {TWO, "TWO"}
+};
+
 void doOneFrame() {
 	InputState input = getButtonStates();
+
+    for (int i = 0; i < LENGTH; ++i)
+    {
+        printf("Button %s: isPressed: %d, isHeld: %d\n",
+               buttonNames[i],
+               input[i].isPressed,
+               input[i].isHeld);
+    }
+
+    printf("\n");
+
 	Frame frame = makeFrame(input);
     renderFrame(frame);
 }

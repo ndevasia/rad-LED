@@ -1,20 +1,5 @@
 #include "render.h"
-#include <unistd.h>
-#include <fcntl.h>
-
-void sendBytes(uint8_t * byte, int n)
-{
-    int fd = open("/dev/ttyACM0", O_WRONLY);
-    if (fd == -1)
-    {
-        perror("Couldn't open arduino serial port\n");
-    }
-
-    printf("Writing %d bytes to serial\n", n);
-    write(fd, byte, n);
-
-    close(fd);
-}
+#include <libserialport.h>
 
 void renderFrame(const Frame & frame)
 {
@@ -29,6 +14,20 @@ void renderFrame(const Frame & frame)
 
         p += 3;
     }
+    
+    const char * serialPort = "/dev/ttyACM0";
+    sp_port * port;
+    sp_return status = sp_get_port_by_name(serialPort, &port);
+    if (sp_get_port_by_name(serialPort, &port) == SP_OK &&
+        sp_open(port, SP_MODE_WRITE) == SP_OK)
+    {
+        sp_set_baudrate(port, 9600);
 
-    sendBytes(msg, sizeof msg);
+        constexpr unsigned ms = 1000;
+        sp_blocking_write(port, msg, sizeof msg, ms);
+    }
+    else
+    {
+        fprintf(stderr, "Error opening: %s\n", serialPort);
+    }
 }
