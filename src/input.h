@@ -24,7 +24,9 @@ struct ButtonState
 
 using InputState = std::array<ButtonState, LENGTH>;
 
+void startInputPolling();
 bool controllersConnected();
 InputState getButtonStates();
+void stopInputPolling();
 
 #endif

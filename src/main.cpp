@@ -6,6 +6,8 @@ int main()
 {
     printf("Connecting to wiimotes...\n");
 
+    startInputPolling();
+
     // Connect to wiimotes
     while (!controllersConnected())
     {
@@ -16,4 +18,6 @@ int main()
     printf("Connected to wiimotes!\n");
 
 	newGame();
+
+    stopInputPolling();
 }

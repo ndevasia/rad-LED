@@ -5,12 +5,19 @@
 #include "input.h"
 #include "wiiuse.h"
 
+using std::thread;
 using std::map;
 using std::array;
 
 wiimote** wiimotes;
 
-bool controllersConnected()
+InputState inputState;
+
+thread pollingThread;
+bool running;
+bool wiimotesConnected = false;
+
+void connectToControllers()
 {
 	int found, connected;
 	wiimotes = wiiuse_init(1);
@@ -36,44 +43,54 @@ bool controllersConnected()
 	wiiuse_rumble(wiimotes[0], 0);
 	wiiuse_rumble(wiimotes[1], 0);
 
-	return true;
+	wiimotesConnected = true;
+}
+
+void startInputPolling()
+{
+    pollingThread = thread([]()
+    {
+        connectToControllers();
+
+        running = true;
+
+        while (running)
+        {
+            if (wiiuse_poll(wiimotes, 1) && wiimotes[0]->event == WIIUSE_EVENT)
+            {
+                static map<WiiButton, int> buttonNames
+                {
+                    {UP, WIIMOTE_BUTTON_RIGHT},
+                    {RIGHT, WIIMOTE_BUTTON_DOWN},
+                    {DOWN, WIIMOTE_BUTTON_LEFT},
+                    {LEFT, WIIMOTE_BUTTON_UP},
+                    {A, WIIMOTE_BUTTON_A},
+                    {B, WIIMOTE_BUTTON_B},
+                    {ONE, WIIMOTE_BUTTON_ONE},
+                    {TWO, WIIMOTE_BUTTON_TWO},
+                };
+                
+                for (const auto entry : buttonNames)
+                {
+                    inputState[entry.first].isPressed = IS_PRESSED(wiimotes[0], entry.second);
+                    inputState[entry.first].isHeld = IS_HELD(wiimotes[0], entry.second);
+                }
+            }
+        }
+    });
+}
+
+bool controllersConnected()
+{
+    return wiimotesConnected;
 }
 
 InputState getButtonStates()
 {
-    static array<ButtonState, LENGTH> lastResult;
-    array<ButtonState, LENGTH> result;
-    memset(result.data(), 0, sizeof result);
+    return inputState;
+}
 
-    if (wiiuse_poll(wiimotes, 1) && wiimotes[0]->event == WIIUSE_EVENT)
-    {
-        static map<WiiButton, int> buttonNames
-        {
-            {UP, WIIMOTE_BUTTON_RIGHT},
-            {RIGHT, WIIMOTE_BUTTON_DOWN},
-            {DOWN, WIIMOTE_BUTTON_LEFT},
-            {LEFT, WIIMOTE_BUTTON_UP},
-            {A, WIIMOTE_BUTTON_A},
-            {B, WIIMOTE_BUTTON_B},
-            {ONE, WIIMOTE_BUTTON_ONE},
-            {TWO, WIIMOTE_BUTTON_TWO},
-        };
-        
-        for (const auto entry : buttonNames)
-        {
-            if (IS_PRESSED(wiimotes[0], entry.second))
-            {
-                result[entry.first].isPressed = true;
-                
-                if (lastResult[entry.first].isPressed)
-                {
-                    result[entry.first].isHeld = true;
-                }
-            }
-        }
-    }
-
-    lastResult = result;
-
-    return result;
+void stopInputPolling()
+{
+    running = false;
 }
