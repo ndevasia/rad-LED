@@ -37,14 +37,14 @@ Frame makeFrame(InputState input, Player *player, std::vector<Character> enemies
     
 	
 	//player movement
-    if (input[RIGHT].isHeld)
+    if (input[RIGHT].isHeld && player->location < cols-1)
     {
-        currCol += 1;
+        player->location += 1;
         
     }
-    else if(input[LEFT].isHeld && currCol > 0)
+    else if(input[LEFT].isHeld && player->location > 0)
     {
-        currCol -= 1;
+        player->location -= 1;
     }
 
 	//fighting
@@ -89,8 +89,14 @@ Frame makeFrame(InputState input, Player *player, std::vector<Character> enemies
 				endGame = true;
 				dead = true;
 			}
-			player->location -= BOUNCE_DISTANCE;
-			enemies[i].location += BOUNCE_DISTANCE;
+			if (player->location > 0)
+			{
+				player->location -= BOUNCE_DISTANCE;
+			}
+			if (enemies[i].location < col - 1)
+			{
+				enemies[i].location += BOUNCE_DISTANCE;
+			}
 		}
 	}
 
