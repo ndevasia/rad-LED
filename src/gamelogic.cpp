@@ -11,9 +11,9 @@
 
 using std::map;
 
-static constexpr int PLAYER_START_LOCATION = 0;
-static constexpr int PLAYER_START_HP = 50; //max hp is 100
+static constexpr int PLAYER_START_LOCATION = 0; 
 static constexpr int PLAYER_MAX_HP = 255;
+static constexpr int PLAYER_START_HP = PLAYER_MAX_HP;
 static constexpr int ENEMY_START_HP = 255;
 static constexpr double ENEMY_PROBABILITY_PERCENT = 50;
 static constexpr int ENEMY_DISTANCE_RANGE = 5;
