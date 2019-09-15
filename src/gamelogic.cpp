@@ -30,7 +30,7 @@ static constexpr int RECHARGE_AMOUNT = 26;
 Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGame, bool dead, bool playerHit) {
 	Frame frame;
 	memset(frame.data(), 0, sizeof frame);
-	printf("endgame %d dead %d", endGame, dead);
+	printf("endgame %d dead %d\n", endGame, dead);
 
 	if (endGame && dead) 
 	{
@@ -103,6 +103,7 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 			if (player->attackLockOut == 0)
 			{
 				playerAttacking = true;
+				printf("player attacking\n");
 				player->attackLockOut = MAX_ATTACK_LOCKOUT;
 			}
 		}
