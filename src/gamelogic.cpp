@@ -30,6 +30,7 @@ static constexpr int RECHARGE_AMOUNT = 26;
 Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGame, bool dead, bool playerHit) {
 	Frame frame;
 	memset(frame.data(), 0, sizeof frame);
+	printf("endgame %d dead %d", endGame, dead);
 
 	if (endGame && dead) 
 	{
@@ -79,7 +80,7 @@ Frame makeFrame(InputState input, Player *player, std::vector<Character> & enemi
 	printf("player: %d,%d; enemy count %d\n", player->location, player->hp, enemies.size());
 	
 	//player movement
-    if (input[RIGHT].isPressed && player->location < cols-1)
+    if (input[RIGHT].isPressed && player->location < (cols-1))
     {
         player->location += 1;
         
