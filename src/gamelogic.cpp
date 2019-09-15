@@ -163,6 +163,9 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 	if (input[B].isPressed && player->isRechargeMode && rechargingAllowed) 
 	{
 		player->hp += RECHARGE_AMOUNT;
+		if (player->hp > 255) {
+			player->hp = 255;
+		}
 	}
 
 	//enemy movement
