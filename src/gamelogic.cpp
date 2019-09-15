@@ -16,15 +16,15 @@ static constexpr int MAX_ENEMY_COUNT = 2;
 static constexpr int PLAYER_START_LOCATION = 0; 
 static constexpr int PLAYER_MAX_HP = 255;
 static constexpr int PLAYER_START_HP = PLAYER_MAX_HP;
-static constexpr int ENEMY_START_HP = 128;
+static constexpr int ENEMY_START_HP = 255;
 
 static constexpr double ENEMY_PROBABILITY_PERCENT = 34;
 static constexpr int ENEMY_DISTANCE_RANGE = 5;
 static constexpr int MAX_ATTACK_LOCKOUT = 3+1;
 static constexpr int BOUNCE_DISTANCE = 2;
 
-static constexpr int PLAYER_HEALTH_LOSS = 26;
-static constexpr int ENEMY_HEALTH_LOSS = 52;
+static constexpr int PLAYER_HEALTH_LOSS = 40;
+static constexpr int ENEMY_HEALTH_LOSS = 90;
 static constexpr int RECHARGE_AMOUNT = 26;
 
 Frame frameFromPixels(Player *player, std::vector<Character> &enemies, bool endGame, bool dead) {
