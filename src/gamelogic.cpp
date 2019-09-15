@@ -11,16 +11,17 @@
 
 using std::map;
 
+static constexpr int MAX_ENEMY_COUNT = 2;
+
 static constexpr int PLAYER_START_LOCATION = 0; 
 static constexpr int PLAYER_MAX_HP = 255;
 static constexpr int PLAYER_START_HP = PLAYER_MAX_HP;
-static constexpr int ENEMY_START_HP = 255;
+static constexpr int ENEMY_START_HP = 128;
+
 static constexpr double ENEMY_PROBABILITY_PERCENT = 34;
 static constexpr int ENEMY_DISTANCE_RANGE = 5;
-static constexpr int ATTACK_POWER = 35;
 static constexpr double REFRESH_RATE = 0.5;
-static constexpr int MAX_ATTACK_LOCKOUT = 5;
-static constexpr int MAX_ENEMY_COUNT = 2;
+static constexpr int MAX_ATTACK_LOCKOUT = 4;
 static constexpr int BOUNCE_DISTANCE = 2;
 
 static constexpr int PLAYER_HEALTH_LOSS = 26;
@@ -122,6 +123,7 @@ bool makeFrame(Player *player, std::vector<Character> &enemies)
 			if (!player->isRechargeMode && playerAttacking) 
 			{
 				enemies[i].hp -= ENEMY_HEALTH_LOSS;
+				enemies[i].hit = true;
 				if (enemies[i].hp <= 0) 
 				{
 					enemies.erase(enemies.begin() + i);
@@ -195,6 +197,7 @@ bool makeFrame(Player *player, std::vector<Character> &enemies)
 			if (!player->isRechargeMode && playerAttacking)
 			{
 				enemies[i].hp -= ENEMY_HEALTH_LOSS;
+				enemies[i].hit = true;
 				if (enemies[i].hp <= 0)
 				{
 					enemies.erase(enemies.begin() + i);
