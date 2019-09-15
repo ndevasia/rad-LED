@@ -174,6 +174,7 @@ Frame makeFrame(InputState input, Player *player, std::vector<Character> & enemi
 		}
 		Character enemy{ startLocation, ENEMY_START_HP };
 		enemies.push_back(enemy);
+		printf("enemy count %d, enemy at %d with %d hp", enemies.size(), enemy.location, enemy.hp);
 	}
 
 	if (player->location == cols - 1) 
