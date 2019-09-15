@@ -125,6 +125,10 @@ Frame makeFrame(InputState input, Player *player, std::vector<Character> & enemi
 			{
 				player->hp -= PLAYER_HEALTH_LOSS;
 				playerHit = true;
+				if (player->hp <= 0) {
+					endGame = true;
+					dead = true;
+				}
 			}
 			else if (player->isRechargeMode) 
 			{
