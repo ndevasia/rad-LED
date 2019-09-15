@@ -232,16 +232,16 @@ bool makeFrame(Player *player, std::vector<Character> &enemies)
 	}
 	
 	//enemy creation
-	bool createEnemy = (rand() % 100) < ENEMY_PROBABILITY_PERCENT;
+	bool createEnemy = (rand() % 100) < (ENEMY_PROBABILITY_PERCENT / (enemies.size()));
 	if (createEnemy && enemies.size() < MAX_ENEMY_COUNT) 
 	{
 		int startLocation = player->location + 1 + (rand() % ENEMY_DISTANCE_RANGE);
-		if (startLocation >= cols - 1) {
+		if (startLocation < cols - 1) {
 			startLocation = cols - 2;
+			Character enemy{ startLocation, ENEMY_START_HP, false };
+			enemies.push_back(enemy);
+			printf("enemy count %d, enemy at %d with %d hp\n", enemies.size(), enemy.location, enemy.hp);
 		}
-		Character enemy{ startLocation, ENEMY_START_HP, false };
-		enemies.push_back(enemy);
-		printf("enemy count %d, enemy at %d with %d hp\n", enemies.size(), enemy.location, enemy.hp);
 	}
 
 	if (player->attackLockOut > 0) 
