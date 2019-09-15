@@ -15,3 +15,7 @@ Controls:
 - One button: hold to attack, but after key press is registered, player is locked out of attacking for four more moves
 - Two button: hold to switch player modes
 - B: hold to recharge while in recharge mode
+
+Here's a picture of Mayukha testing it out! 
+
+![Image of Pixel Hero](https://github.com/ndevasia/rad-LED/blob/master/images/hackmit.jpeg)
