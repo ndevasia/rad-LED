@@ -182,7 +182,7 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 	}
 
 	//re-check collisions
-	int numEnemies = enemies.size();
+	numEnemies = enemies.size();
 	for (int i = 0; i < numEnemies; i++)
 	{
 		if (enemies[i].location == player->location)
