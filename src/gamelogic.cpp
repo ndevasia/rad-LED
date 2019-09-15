@@ -283,7 +283,7 @@ void newGame()
 		if (end) {
 			break;
 		}
-		int sleepTimeInMilli = 500;
+		int sleepTimeInMilli = 800;
 		usleep(sleepTimeInMilli * 1000); //so that frames only update once a second
 	}
 }
