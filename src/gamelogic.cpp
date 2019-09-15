@@ -27,7 +27,7 @@ static constexpr int PLAYER_HEALTH_LOSS = 26;
 static constexpr int ENEMY_HEALTH_LOSS = 52;
 static constexpr int RECHARGE_AMOUNT = 26;
 
-bool frameFromPixels(Player *player, std::vector<Character> enemies, bool endGame, bool dead, bool playerHit) {
+Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGame, bool dead, bool playerHit) {
 	Frame frame;
 	memset(frame.data(), 0, sizeof frame);
 	printf("endgame %d dead %d", endGame, dead);
@@ -72,7 +72,7 @@ bool frameFromPixels(Player *player, std::vector<Character> enemies, bool endGam
 	return frame;
 }
 
-Frame makeFrame(Player *player, std::vector<Character> & enemies)
+bool makeFrame(Player *player, std::vector<Character> & enemies)
 {
 	InputState input = getButtonStates();
 
