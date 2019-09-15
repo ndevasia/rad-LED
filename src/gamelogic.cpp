@@ -37,12 +37,12 @@ Frame makeFrame(InputState input, Player *player, std::vector<Character> enemies
     
 	
 	//player movement
-    if (input[RIGHT].isHeld && player->location < cols-1)
+    if (input[RIGHT].isPressed && player->location < cols-1)
     {
         player->location += 1;
         
     }
-    else if(input[LEFT].isHeld && player->location > 0)
+    else if(input[LEFT].isPressed && player->location > 0)
     {
         player->location -= 1;
     }
@@ -208,7 +208,7 @@ void doOneFrame(Player *player, std::vector<Character> enemies)
         printf("Button %s: isPressed: %d, isHeld: %d\n",
                buttonNames[i],
                input[i].isPressed,
-               input[i].isHeld);
+               input[i].isPressed);
     }
 
     printf("\n");
