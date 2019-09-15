@@ -27,7 +27,7 @@ static constexpr int PLAYER_HEALTH_LOSS = 26;
 static constexpr int ENEMY_HEALTH_LOSS = 52;
 static constexpr int RECHARGE_AMOUNT = 26;
 
-Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGame, bool dead, bool playerHit) {
+bool frameFromPixels(Player *player, std::vector<Character> enemies, bool endGame, bool dead, bool playerHit) {
 	Frame frame;
 	memset(frame.data(), 0, sizeof frame);
 	printf("endgame %d dead %d", endGame, dead);
@@ -198,6 +198,7 @@ Frame makeFrame(Player *player, std::vector<Character> & enemies)
 
     Frame frame = frameFromPixels(player, enemies, endGame, dead, playerHit); 
 	renderFrame(frame);
+	return endGame;
 }
 
 static map<int, const char *> buttonNames
@@ -220,7 +221,7 @@ void newGame()
 	
 	while (true) 
 	{
-		bool end = doOneFrame(&player, enemies);
+		bool end = makeFrame(&player, enemies);
 		if (end) {
 			break;
 		}
