@@ -206,10 +206,10 @@ void doOneFrame(Player *player, std::vector<Character> enemies)
 
     for (int i = 0; i < LENGTH; ++i)
     {
-        printf("Button %s: isPressed: %d, isHeld: %d\n",
-               buttonNames[i],
-               input[i].isPressed,
-               input[i].isPressed);
+        //printf("Button %s: isPressed: %d, isHeld: %d\n",
+        //       buttonNames[i],
+        //       input[i].isPressed,
+        //       input[i].isPressed);
     }
 
     printf("\n");
