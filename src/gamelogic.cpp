@@ -110,7 +110,7 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 	}
 	bool playerHit = false;
 	int numEnemies = enemies.size();
-	for (int i = 0; i < enemies.size(); i++)
+	for (int i = 0; i < numEnemies; i++)
 	{
 		if (enemies[i].location == player->location) 
 		{
@@ -182,9 +182,8 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 	}
 
 	//re-check collisions
-	bool playerHit = false;
 	int numEnemies = enemies.size();
-	for (int i = 0; i < enemies.size(); i++)
+	for (int i = 0; i < numEnemies; i++)
 	{
 		if (enemies[i].location == player->location)
 		{
