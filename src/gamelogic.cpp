@@ -145,13 +145,19 @@ bool makeFrame(Player *player, std::vector<Character> &enemies)
 				endGame = true;
 				dead = true;
 			}
-			if (player->location > 0)
+			if (player->location >= 0 + BOUNCE_DISTANCE)
 			{
 				player->location -= BOUNCE_DISTANCE;
 			}
-			if (enemies[i].location < cols - 1)
+			else {
+				player->location = 0;
+			}
+			if (enemies[i].location < cols - 1 - BOUNCE_DISTANCE)
 			{
 				enemies[i].location += BOUNCE_DISTANCE;
+			}
+			else {
+				enemies[i].location = cols - 2;
 			}
 		}
 	}
