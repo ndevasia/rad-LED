@@ -237,7 +237,6 @@ bool makeFrame(Player *player, std::vector<Character> &enemies)
 	{
 		int startLocation = player->location + 1 + (rand() % ENEMY_DISTANCE_RANGE);
 		if (startLocation < cols - 1) {
-			startLocation = cols - 2;
 			Character enemy{ startLocation, ENEMY_START_HP, false };
 			enemies.push_back(enemy);
 			printf("enemy count %d, enemy at %d with %d hp\n", enemies.size(), enemy.location, enemy.hp);
