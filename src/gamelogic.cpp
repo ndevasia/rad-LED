@@ -72,8 +72,10 @@ Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGa
 	return frame;
 }
 
-Frame makeFrame(InputState input, Player *player, std::vector<Character> & enemies)
+Frame makeFrame(Player *player, std::vector<Character> & enemies)
 {
+	InputState input = getButtonStates();
+
 	bool endGame = false;
 	bool dead = false;
     
@@ -189,7 +191,8 @@ Frame makeFrame(InputState input, Player *player, std::vector<Character> & enemi
 	}
 
 
-    return frameFromPixels(player, enemies, endGame, dead, playerHit); 
+    Frame frame = frameFromPixels(player, enemies, endGame, dead, playerHit); 
+	renderFrame(frame);
 }
 
 static map<int, const char *> buttonNames
@@ -204,25 +207,6 @@ static map<int, const char *> buttonNames
     {TWO, "TWO"}
 };
 
-
-void doOneFrame(Player *player, std::vector<Character> &enemies) 
-{
-	InputState input = getButtonStates();
-
-    for (int i = 0; i < LENGTH; ++i)
-    {
-        //printf("Button %s: isPressed: %d, isHeld: %d\n",
-        //       buttonNames[i],
-        //       input[i].isPressed,
-        //       input[i].isPressed);
-    }
-
-    printf("\n");
-
-	Frame frame = makeFrame(input, player, enemies);
-    renderFrame(frame);
-}
-
 void newGame() 
 {
 	Player player{ PLAYER_START_LOCATION, PLAYER_START_HP, false, 0 };
@@ -231,7 +215,10 @@ void newGame()
 	
 	while (true) 
 	{
-		doOneFrame(&player, enemies);
+		bool end = doOneFrame(&player, enemies);
+		if (end) {
+			break;
+		}
 		int sleepTimeInMilli = 1000;
 		usleep(sleepTimeInMilli * 1000); //so that frames only update once a second
 	}
