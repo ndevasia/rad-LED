@@ -180,6 +180,50 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 			enemies[i].location = 0;
 		}
 	}
+
+	//re-check collisions
+	bool playerHit = false;
+	int numEnemies = enemies.size();
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		if (enemies[i].location == player->location)
+		{
+			printf("collision at %d, player hp %d, enemy hp %d\n", player->location, player->hp, enemies[i].hp);
+			if (!player->isRechargeMode && playerAttacking)
+			{
+				enemies[i].hp -= ENEMY_HEALTH_LOSS;
+				if (enemies[i].hp <= 0)
+				{
+					enemies.erase(enemies.begin() + i);
+					numEnemies -= 1;
+					i -= 1;
+				}
+			}
+			else if (!player->isRechargeMode && !playerAttacking)
+			{
+				player->hp -= PLAYER_HEALTH_LOSS;
+				playerHit = true;
+				if (player->hp <= 0) {
+					endGame = true;
+					dead = true;
+				}
+			}
+			else if (player->isRechargeMode)
+			{
+				player->hp = 0;
+				endGame = true;
+				dead = true;
+			}
+			if (player->location > 0)
+			{
+				player->location -= BOUNCE_DISTANCE;
+			}
+			if (enemies[i].location < cols - 1)
+			{
+				enemies[i].location += BOUNCE_DISTANCE;
+			}
+		}
+	}
 	
 	//enemy creation
 	bool createEnemy = (rand() % 100) < ENEMY_PROBABILITY_PERCENT;
