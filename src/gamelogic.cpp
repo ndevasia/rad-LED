@@ -37,7 +37,7 @@ Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGa
 		//all red
 		for (int i = 0; i < cols; i++) 
 		{
-			frame[player->location] = { 255, 0, 0 };
+			frame[i] = { 255, 0, 0 };
 		}
 	}
 	else if (endGame && !dead) 
@@ -45,7 +45,7 @@ Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGa
 		//all green
 		for (int i = 0; i < cols; i++) 
 		{
-			frame[player->location] = { 0,255, 0 };
+			frame[i] = { 0,255, 0 };
 		}
 	}
 	else {
