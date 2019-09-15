@@ -76,6 +76,7 @@ Frame makeFrame(InputState input, Player *player, std::vector<Character> & enemi
 	bool endGame = false;
 	bool dead = false;
     
+	printf("player: %d,%d; enemy count %d", player->location, player->hp, enemies.size());
 	
 	//player movement
     if (input[RIGHT].isPressed && player->location < cols-1)
@@ -109,6 +110,7 @@ Frame makeFrame(InputState input, Player *player, std::vector<Character> & enemi
 	{
 		if (enemies[i].location == player->location) 
 		{
+			printf("collision at %d, player hp %d, enemy hp %d", player->location, player->hp, enemies[i].hp);
 			if (!player->isRechargeMode && playerAttacking) 
 			{
 				enemies[i].hp -= ENEMY_HEALTH_LOSS;
