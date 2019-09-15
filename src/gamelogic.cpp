@@ -19,7 +19,7 @@ static constexpr double ENEMY_PROBABILITY_PERCENT = 50;
 static constexpr int ENEMY_DISTANCE_RANGE = 5;
 static constexpr int ATTACK_POWER = 35;
 static constexpr double REFRESH_RATE = 0.5;
-static constexpr int MAX_ATTACK_LOCKOUT = 10;
+static constexpr int MAX_ATTACK_LOCKOUT = 5;
 static constexpr int MAX_ENEMY_COUNT = 3;
 static constexpr int BOUNCE_DISTANCE = 2;
 
@@ -182,6 +182,11 @@ Frame makeFrame(Player *player, std::vector<Character> & enemies)
 		Character enemy{ startLocation, ENEMY_START_HP };
 		enemies.push_back(enemy);
 		printf("enemy count %d, enemy at %d with %d hp\n", enemies.size(), enemy.location, enemy.hp);
+	}
+
+	if (player->attackLockOut > 0) 
+	{
+		player->attackLockOut -= 1;
 	}
 
 	if (player->location == cols - 1) 
