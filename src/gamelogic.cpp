@@ -20,7 +20,7 @@ static constexpr int ENEMY_DISTANCE_RANGE = 5;
 static constexpr int ATTACK_POWER = 35;
 static constexpr double REFRESH_RATE = 0.5;
 static constexpr int MAX_ATTACK_LOCKOUT = 5;
-static constexpr int MAX_ENEMY_COUNT = 3;
+static constexpr int MAX_ENEMY_COUNT = 2;
 static constexpr int BOUNCE_DISTANCE = 2;
 
 static constexpr int PLAYER_HEALTH_LOSS = 26;
