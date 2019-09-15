@@ -20,7 +20,7 @@ static constexpr int ENEMY_START_HP = 128;
 
 static constexpr double ENEMY_PROBABILITY_PERCENT = 34;
 static constexpr int ENEMY_DISTANCE_RANGE = 5;
-static constexpr int MAX_ATTACK_LOCKOUT = 4;
+static constexpr int MAX_ATTACK_LOCKOUT = 3+1;
 static constexpr int BOUNCE_DISTANCE = 2;
 
 static constexpr int PLAYER_HEALTH_LOSS = 26;
@@ -179,10 +179,10 @@ bool makeFrame(Player *player, std::vector<Character> &enemies)
 		int enemyMovement = (rand() % 2) * 2 - 1;
 		enemies[i].location += enemyMovement;
 		if (enemies[i].location >= cols - 1) {
-			enemies[i].location = cols - 2;
+			enemies[i].location = cols - 3;
 		}
 		else if (enemies[i].location < 0) {
-			enemies[i].location = 0;
+			enemies[i].location = 1;
 		}
 	}
 
