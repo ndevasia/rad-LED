@@ -20,7 +20,6 @@ static constexpr int ENEMY_START_HP = 128;
 
 static constexpr double ENEMY_PROBABILITY_PERCENT = 34;
 static constexpr int ENEMY_DISTANCE_RANGE = 5;
-static constexpr double REFRESH_RATE = 0.5;
 static constexpr int MAX_ATTACK_LOCKOUT = 4;
 static constexpr int BOUNCE_DISTANCE = 2;
 
@@ -236,7 +235,7 @@ bool makeFrame(Player *player, std::vector<Character> &enemies)
 	if (createEnemy && enemies.size() < MAX_ENEMY_COUNT) 
 	{
 		int startLocation = player->location + 1 + (rand() % ENEMY_DISTANCE_RANGE);
-		if (startLocation < cols - 1) {
+		if (startLocation < cols - 3) {
 			Character enemy{ startLocation, ENEMY_START_HP, false };
 			enemies.push_back(enemy);
 			printf("enemy count %d, enemy at %d with %d hp\n", enemies.size(), enemy.location, enemy.hp);
@@ -284,7 +283,7 @@ void newGame()
 		if (end) {
 			break;
 		}
-		int sleepTimeInMilli = 1000;
+		int sleepTimeInMilli = 500;
 		usleep(sleepTimeInMilli * 1000); //so that frames only update once a second
 	}
 }
