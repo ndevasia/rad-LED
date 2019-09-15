@@ -27,7 +27,7 @@ static constexpr int PLAYER_HEALTH_LOSS = 26;
 static constexpr int ENEMY_HEALTH_LOSS = 52;
 static constexpr int RECHARGE_AMOUNT = 26;
 
-Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGame, bool dead, bool playerHit) {
+Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGame, bool dead) {
 	Frame frame;
 	memset(frame.data(), 0, sizeof frame);
 	printf("endgame %d dead %d\n", endGame, dead);
@@ -50,13 +50,14 @@ Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGa
 	}
 	else {
 		//player
-		if (!player->isRechargeMode && !playerHit) 
+		if (!player->isRechargeMode && !player->hit) 
 		{
 			frame[player->location] = { 0, 0, 255 };
 		}
 		else 
 		{
 			frame[player->location] = { 255 - player->hp, player->hp, 0 };
+			player->hit = false;
 		}
 
 		//enemies
@@ -64,6 +65,10 @@ Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGa
 		{
 			int enemyHealth = enemies[i].hp;
 			frame[enemies[i].location] = { enemyHealth, enemyHealth, enemyHealth };
+			if (enemies[i].hit) {
+				frame[enemies[i].location] = { 255, 0, 255 };
+				enemies[i].hit = false;
+			}
 		}
 
 		//end square
@@ -72,7 +77,7 @@ Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGa
 	return frame;
 }
 
-bool makeFrame(Player *player, std::vector<Character> & enemies)
+bool makeFrame(Player *player, std::vector<Character> &enemies)
 {
 	InputState input = getButtonStates();
 
@@ -108,7 +113,6 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 			}
 		}
 	}
-	bool playerHit = false;
 	int numEnemies = enemies.size();
 	for (int i = 0; i < numEnemies; i++)
 	{
@@ -128,7 +132,7 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 			else if (!player->isRechargeMode && !playerAttacking) 
 			{
 				player->hp -= PLAYER_HEALTH_LOSS;
-				playerHit = true;
+				player->hit = true;
 				if (player->hp <= 0) {
 					endGame = true;
 					dead = true;
@@ -201,7 +205,7 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 			else if (!player->isRechargeMode && !playerAttacking)
 			{
 				player->hp -= PLAYER_HEALTH_LOSS;
-				playerHit = true;
+				player->hit = true;
 				if (player->hp <= 0) {
 					endGame = true;
 					dead = true;
@@ -232,7 +236,7 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 		if (startLocation >= cols - 1) {
 			startLocation = cols - 2;
 		}
-		Character enemy{ startLocation, ENEMY_START_HP };
+		Character enemy{ startLocation, ENEMY_START_HP, false };
 		enemies.push_back(enemy);
 		printf("enemy count %d, enemy at %d with %d hp\n", enemies.size(), enemy.location, enemy.hp);
 	}
@@ -249,7 +253,7 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 	}
 
 
-    Frame frame = frameFromPixels(player, enemies, endGame, dead, playerHit); 
+    Frame frame = frameFromPixels(player, enemies, endGame, dead); 
 	renderFrame(frame);
 	return endGame;
 }
@@ -268,7 +272,7 @@ static map<int, const char *> buttonNames
 
 void newGame() 
 {
-	Player player{ PLAYER_START_LOCATION, PLAYER_START_HP, false, 0 };
+	Player player{ PLAYER_START_LOCATION, PLAYER_START_HP, false,  false, 0 };
 	std::vector<Character> enemies;
 	
 	
