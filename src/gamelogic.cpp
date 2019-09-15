@@ -173,6 +173,12 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 	{
 		int enemyMovement = (rand() % 2) * 2 - 1;
 		enemies[i].location += enemyMovement;
+		if (enemies[i].location >= cols - 1) {
+			enemies[i].location = cols - 2;
+		}
+		else if (enemies[i].location < 0) {
+			enemies[i].location = 0;
+		}
 	}
 	
 	//enemy creation
@@ -181,7 +187,7 @@ bool makeFrame(Player *player, std::vector<Character> & enemies)
 	{
 		int startLocation = player->location + 1 + (rand() % ENEMY_DISTANCE_RANGE);
 		if (startLocation >= cols - 1) {
-			startLocation = cols - 1;
+			startLocation = cols - 2;
 		}
 		Character enemy{ startLocation, ENEMY_START_HP };
 		enemies.push_back(enemy);
