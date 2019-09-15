@@ -1,4 +1,6 @@
-# rad-LED
+# Pixel Hero
+
+![Pixel Hero logo](https://github.com/ndevasia/rad-LED/blob/master/images/pixelhero.png)
 
 HackMIT 2019 project by Jake Whitton, Mayukha Vadari, and Nisha Devasia.
 
