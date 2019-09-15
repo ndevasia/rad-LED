@@ -28,7 +28,7 @@ static constexpr int PLAYER_HEALTH_LOSS = 26;
 static constexpr int ENEMY_HEALTH_LOSS = 52;
 static constexpr int RECHARGE_AMOUNT = 26;
 
-Frame frameFromPixels(Player *player, std::vector<Character> enemies, bool endGame, bool dead) {
+Frame frameFromPixels(Player *player, std::vector<Character> &enemies, bool endGame, bool dead) {
 	Frame frame;
 	memset(frame.data(), 0, sizeof frame);
 	printf("endgame %d dead %d\n", endGame, dead);
